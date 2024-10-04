@@ -1,0 +1,132 @@
+TRANSIENT RESPONSE OF SERIES RL
+
+
+clc;
+c=10e-6;
+r=200;
+tau=c*r;
+t=0:0.002:0.01;
+vc=40*(1-exp(-t/tau));
+plot(t,vc);
+xlabel('Times,s'),ylabel('capacitor voltage , vc')
+title('charging of capacitor')
+
+TRANSIENT RESPONSE OF SERIES RC
+
+clc
+l=0.01;
+r=100;
+tau=l/r;
+t=0:100e-6:500e-6;
+it=0.1*(1-exp(-t/tau));
+plot(t,it);
+xlabel('time,s') , ylabel('indicator current , it ')
+title ('inductor current in RL circuit ')
+
+TRANSIENT RESPONSE OF SERIES RLC
+
+clc
+L=8;
+c=2;
+r=4;
+w0=1/sqrt(L*c);
+for t=1:21;
+   it=125*t*exp(-w0*t);
+   IT(t)=it;
+end
+t=0:20;
+plot(t,IT)
+xlabel('Time, s');
+ylabel('Current, I(T)');
+title('Current Response');
+
+TRANSIENT RESPONSE OF PARALLEL RLC
+
+% Transient analysis of parallel RLC circuit
+clc
+t2=0:1e-3:30e-3;
+vt=-6.667*exp(-1600*t2)+26.667*exp(-400*t2);
+plot(t2,vt)
+xlabel('Time, s'),ylabel('Capacitor voltage, V')
+
+TRANSFER FUNCTION OF ELECTRICAL CIRCUITS
+
+% Transfer Function Calculation for an AC Circuit
+clear all;close all;clc
+R=30;
+L=0.7e-3;
+C=1.5-6;
+f=logspace(1,5);
+omega=2*pi.*f;
+ZC=1./(j.*omega.*C);
+ZL=j.*omega.*L;
+Hf=ZC./(ZC+ZL+R);
+subplot(211)
+loglog(f,abs(Hf))
+title('Magnitude')
+xlabel('Freuency (Hz)')
+ylabel('Amplitude')
+axis([10 1e5 1e-3 10])
+subplot(212)
+semilogx(f,angle(Hf))
+title('Phase')
+xlabel('Frequency (Hz)')
+ylabel('Angle (rad)')
+axis([10 1e5 -3.5 0.5])
+
+SIMULATION OF LOW PASS AND HIGH PASS FILTERS USING DIGITAL SIMULATION
+
+For highpass Filter
+
+clc;
+f = 0:1:10^6;
+r1 = 10000;
+rf = 1000;
+r = 15900;
+c = 0.01 * 10^-6;
+af = (1 + rf/r1);
+fc = 1 / (2 * pi * r * c);
+a = f / fc;
+acl_hp = af .* a ./ sqrt(1 + a .* a);
+semilogx(f, acl_hp);
+xlabel('Frequency (Hz) >');
+ylabel('Gain >');
+title('Frequency Response of High Pass Filter');
+grid on;
+
+For Lowpass Filter
+
+clc;
+f = 0:1:10^6;
+r1 = 1000;
+r = 15900;
+c = 0.01 * 10^-6;
+af = (1 + r/r1);
+fc = 1 / (2 * pi * r * c);
+a = f / fc;
+acl_lp = af ./ sqrt(1 + a .* a);
+semilogx(f, acl_lp);
+xlabel('Frequency (Hz) >');
+ylabel('Gain >');
+title('Frequency Response of Low Pass Filter');
+grid on;
+
+GENERATION OF THREE PHASE WAVEFORM
+
+clc;
+clear all;
+t=0:0.002:0.04;
+y=sin(2*pi*50*t);
+plot(t,y,'y')
+hold on
+t1=0:0.002:0.04;
+y1=sin(2*pi*50*t+2*pi/3);
+plot(t1,y1,'r')
+hold on
+t2=0:0.002:0.04;
+y2=sin(2*pi*50*t-2*pi/3);
+plot(t2,y2,'b')
+grid;
+xlabel('time(s)');
+ylabel('amplitude');
+title('three phase sine wave');
